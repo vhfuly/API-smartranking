@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query, Delete, UsePipes, ValidationPipe, Param, Put } from '@nestjs/common';
+import { Controller, Post, Body, Get, Delete, UsePipes, ValidationPipe, Param, Put } from '@nestjs/common';
 import { CreatePlayerDto } from './dtos/create-player.dto'
 import { PlayersService } from './players.service';
 import { Player } from './ interfaces/player.interface';
@@ -43,6 +43,6 @@ export class PlayersController {
   async deletePlayer(
     @Param('_id',PlayersValidatorParametersPipes) _id: string
   ): Promise<void>{
-    this.playersService.deletePlayerById(_id);
+    this.playersService.deletePlayerByID(_id);
   }
 }
