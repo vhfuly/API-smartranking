@@ -23,8 +23,6 @@ export class PlayersService {
   }
 
   async updatePlayer(_id: string, createPlayerDto : CreatePlayerDto): Promise<void>{
-
-
     const playersFound = await this.playerModel.findOne({ _id }).exec();
 
     if(!playersFound){
