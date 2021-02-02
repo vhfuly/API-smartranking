@@ -1,8 +1,9 @@
 import { Controller, Post, Body, Get, Delete, UsePipes, ValidationPipe, Param, Put } from '@nestjs/common';
 import { CreatePlayerDto } from './dtos/create-player.dto'
 import { PlayersService } from './players.service';
-import { Player } from './ interfaces/player.interface';
-import { PlayersValidatorParametersPipes } from './pipes/players-validaitor-parameters.pipe';
+import { Player } from './interfaces/player.interface';
+import { ValidatorParametersPipes } from '../common/pipes/validaitor-parameters.pipe';
+import { UpdatePlayerDto } from './dtos/update-player.dto';
 
 @Controller('api/v1/players')
 export class PlayersController {
@@ -13,17 +14,17 @@ export class PlayersController {
   @UsePipes(ValidationPipe)
   async createPlayer(
     @Body() createPlayerDto: CreatePlayerDto
-    ){
-      await this.playersService.createPlayer(createPlayerDto);
+    ): Promise<Player>{
+      return await this.playersService.createPlayer(createPlayerDto);
   }
 
   @Put(':_id')
   @UsePipes(ValidationPipe)
   async updatePlayer(
-    @Body() createPlayerDto: CreatePlayerDto,
-    @Param('_id',PlayersValidatorParametersPipes) _id: string 
+    @Body() updatePlayerDto: UpdatePlayerDto,
+    @Param('_id',ValidatorParametersPipes) _id: string 
     ): Promise<void>{
-      await this.playersService.updatePlayer(_id, createPlayerDto);
+      await this.playersService.updatePlayer(_id, updatePlayerDto);
   }
 
   @Get()
@@ -34,14 +35,14 @@ export class PlayersController {
 
   @Get(':_id')
   async getPlayerById(
-    @Param('_id',PlayersValidatorParametersPipes) _id: string
+    @Param('_id',ValidatorParametersPipes) _id: string
   ): Promise<Player> {
       return await this.playersService.getPlayerByID(_id);
   }
 
   @Delete(':_id')
   async deletePlayer(
-    @Param('_id',PlayersValidatorParametersPipes) _id: string
+    @Param('_id',ValidatorParametersPipes) _id: string
   ): Promise<void>{
     this.playersService.deletePlayerByID(_id);
   }

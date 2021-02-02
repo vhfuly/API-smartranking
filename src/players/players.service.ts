@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreatePlayerDto } from './dtos/create-player.dto';
-import { Player } from './ interfaces/player.interface';
+import { Player } from './interfaces/player.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UpdatePlayerDto } from './dtos/update-player.dto';
 
 @Injectable()
 export class PlayersService {
@@ -22,7 +23,7 @@ export class PlayersService {
     return await playerCreate.save()
   }
 
-  async updatePlayer(_id: string, createPlayerDto : CreatePlayerDto): Promise<void>{
+  async updatePlayer(_id: string, updatePlayerDto : UpdatePlayerDto): Promise<void>{
     const playersFound = await this.playerModel.findOne({ _id }).exec();
 
     if(!playersFound){
@@ -31,7 +32,7 @@ export class PlayersService {
 
     await this.playerModel.findByIdAndUpdate(
       {_id},
-      {$set: createPlayerDto}
+      {$set: updatePlayerDto}
     );
   }
 
@@ -40,7 +41,7 @@ export class PlayersService {
   }
 
   async getPlayerByID(_id : string): Promise<Player>{
-    const playersFound = await this.playerModel.findOne({ _id }).exec();
+    const playersFound = await this.playerModel.findOne({ _id });
     if(!playersFound){
       throw new NotFoundException(`Id-${_id} not found`)
     }
