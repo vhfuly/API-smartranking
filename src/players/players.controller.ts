@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Get, Delete, UsePipes, ValidationPipe, Param, Put } from '@nestjs/common';
 import { CreatePlayerDto } from './dtos/create-player.dto'
 import { PlayersService } from './players.service';
-import { Player } from './interfaces/player.interface';
+import { Player } from './schemas/player.schema';
 import { ValidatorParametersPipes } from '../common/pipes/validaitor-parameters.pipe';
 import { UpdatePlayerDto } from './dtos/update-player.dto';
 

@@ -1,5 +1,5 @@
 import { Controller, Body, Post, Get, Param, Put, UsePipes, ValidationPipe } from '@nestjs/common';
-import { Category } from './interfaces/category.interface';
+import { Category } from './interfaces/category.schema';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';

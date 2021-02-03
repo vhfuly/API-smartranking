@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreatePlayerDto } from './dtos/create-player.dto';
-import { Player } from './interfaces/player.interface';
+import { Player, PlayerDocument } from './schemas/player.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UpdatePlayerDto } from './dtos/update-player.dto';
@@ -8,9 +8,9 @@ import { UpdatePlayerDto } from './dtos/update-player.dto';
 @Injectable()
 export class PlayersService {
 
-  constructor(@InjectModel('Player') private readonly playerModel: Model<Player>) {}
+  constructor(@InjectModel('Player') private readonly playerModel: Model<PlayerDocument>) {}
 
-  async createPlayer(createPlayerDto : CreatePlayerDto): Promise<Player>{
+  async createPlayer(createPlayerDto : CreatePlayerDto): Promise<PlayerDocument>{
 
     const { email } = createPlayerDto;
 

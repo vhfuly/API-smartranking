@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Category } from './interfaces/category.interface';
+import { Category, CategoryDocument } from './interfaces/category.schema';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { Model } from 'mongoose';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -12,7 +12,7 @@ import { PlayersService } from 'src/players/players.service';
 export class CategoriesService {
   constructor(
     @InjectModel('Category')
-    private readonly categoryModel: Model<Category>,
+    private readonly categoryModel: Model<CategoryDocument>,
     private readonly playersService: PlayersService,
   ) {}
 
@@ -51,7 +51,7 @@ export class CategoriesService {
       throw new NotFoundException(`Category ${category} not found.`)
     }
 
-    await this.categoryModel.findByIdAndUpdate({category}, {$set: updateCategoryDto})
+    await this.categoryModel.findByIdAndUpdate({category}, {set: updateCategoryDto})
   }
 
   async addPlayerToACategory(params: AddPlayerToACategory): Promise<void> {

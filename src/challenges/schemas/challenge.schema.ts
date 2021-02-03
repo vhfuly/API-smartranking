@@ -3,9 +3,9 @@ import * as mongoose from 'mongoose';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-import { ChallengeStatus } from './challenge-status.enum';
-import { Player } from 'src/players/interfaces/player.interface';
-import { Match } from './challenge.interface';
+import { ChallengeStatus } from '../interfaces/challenge-status.enum';
+import { Player } from 'src/players/schemas/player.schema';
+import { Match } from '../interfaces/match.interface';
 
 @Schema({ timestamps: true, collection:'challenges'})
 export class Challenge {

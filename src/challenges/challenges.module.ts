@@ -6,4 +6,4 @@ import { ChallengesController } from './challenges.controller';
   providers: [ChallengesService],
   controllers: [ChallengesController]
 })
-export class ChallengeMsodule {}
+export class ChallengesMsodule {}

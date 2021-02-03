@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PlayersModule } from './players/players.module';
 import { CategoriesModule } from './categories/categories.module';
-import { ChallengeModule } from './challenge/challenge.module';
+import { ChallengesMsodule } from './challenges/challenges.module';
 
 @Module({
   imports: [
@@ -10,7 +10,7 @@ import { ChallengeModule } from './challenge/challenge.module';
     { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopolog:true, useFindAndModify: false }),
     PlayersModule,
     CategoriesModule,
-    ChallengeModule
+    ChallengesMsodule
   ],
   controllers: [],
   providers: [],
