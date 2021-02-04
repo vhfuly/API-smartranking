@@ -41,7 +41,13 @@ export class ChallengesService {
     challengeCreate.status = ChallengeStatus.PENDING;
     this.logger.log(`challengeCreate: ${challengeCreate}`)
     return await challengeCreate.save()
+  }
 
-
+  async getChallenges(): Promise<Challenge[]> {
+    return await await this.challengeModel.find()
+    .populate("requester")
+    .populate("players")
+    .populate("macth")
+    .lean();
   }
 }
