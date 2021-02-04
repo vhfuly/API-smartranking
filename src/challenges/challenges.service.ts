@@ -8,6 +8,7 @@ import { CreateChallengeDto } from './dtos/create-challenge.dto';
 import { PlayersService } from 'src/players/players.service';
 import { CategoriesService } from 'src/categories/categories.service';
 import { ChallengeStatus } from './interfaces/challenge-status.enum';
+import { UpdateChallengeDto } from './dtos/update-challenge.dto';
 
 @Injectable()
 export class ChallengesService {
@@ -69,14 +70,23 @@ export class ChallengesService {
 
   async deleteChallenge(_id: string): Promise<void> {
 
-    const challengeFound = await this.challengeModel.findById(_id)
-
-    if (!challengeFound) {
-        throw new BadRequestException(`challenge ${_id} not registered!`)
-    }
+    const challengeFound = await this.challengeFound(_id)
     challengeFound.status = ChallengeStatus.CANCELED
-
     await this.challengeModel.findOneAndUpdate({_id},{$set: challengeFound})
   }
 
+  async updateChallenge(_id: string, updateChallengeDto: UpdateChallengeDto) {
+    const challengeUpdate = await this.challengeFound(_id);
+    challengeUpdate.status = updateChallengeDto.status;
+    challengeUpdate.dateHourChallenge = updateChallengeDto.dateHourChallenge
+    await this.challengeModel.findOneAndUpdate({_id},{$set: challengeUpdate});
+  }
+
+  private async challengeFound(_id: string): Promise<Challenge> {
+    const challengeFound = await this.challengeModel.findById(_id)
+    if (!challengeFound) {
+      throw new BadRequestException(`challenge ${_id} not registered!`)
+    }
+    return challengeFound
+  }
 }
