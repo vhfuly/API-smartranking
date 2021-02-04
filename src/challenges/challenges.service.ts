@@ -57,7 +57,7 @@ export class ChallengesService {
     if (!playerFilter) {
       throw new BadRequestException(`Id ${_id} is not a player!`)
     }
-    
+
    return await await this.challengeModel.find()
     .where('players')
     .in([_id])
@@ -66,4 +66,17 @@ export class ChallengesService {
     .populate("macth")
     .lean();
   }
+
+  async deleteChallenge(_id: string): Promise<void> {
+
+    const challengeFound = await this.challengeModel.findById(_id)
+
+    if (!challengeFound) {
+        throw new BadRequestException(`challenge ${_id} not registered!`)
+    }
+    challengeFound.status = ChallengeStatus.CANCELED
+
+    await this.challengeModel.findOneAndUpdate({_id},{$set: challengeFound})
+  }
+
 }
