@@ -50,4 +50,20 @@ export class ChallengesService {
     .populate("macth")
     .lean();
   }
+
+  async getPlayerChallenges(_id: string): Promise<Challenge[]> {
+    const players = await this.playersService.getAllPlayers()
+    const playerFilter = players.filter( player => player._id == _id )
+    if (!playerFilter) {
+      throw new BadRequestException(`Id ${_id} is not a player!`)
+    }
+    
+   return await await this.challengeModel.find()
+    .where('players')
+    .in([_id])
+    .populate("requester")
+    .populate("players")
+    .populate("macth")
+    .lean();
+  }
 }
