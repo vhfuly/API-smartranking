@@ -13,6 +13,7 @@ import { PlayersModule } from 'src/players/players.module';
     PlayersModule,
   ],
   controllers: [CategoriesController],
-  providers: [CategoriesService]
+  providers: [CategoriesService],
+  exports:[CategoriesService],
 })
 export class CategoriesModule {}

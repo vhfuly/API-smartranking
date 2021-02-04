@@ -8,7 +8,9 @@ import { UpdatePlayerDto } from './dtos/update-player.dto';
 @Controller('api/v1/players')
 export class PlayersController {
 
-  constructor(private readonly playersService: PlayersService ){}
+  constructor(
+    private readonly playersService: PlayersService
+  ){}
 
   @Post()
   @UsePipes(ValidationPipe)
